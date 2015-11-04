@@ -44,17 +44,11 @@ CHIP ALU {
     PARTS:
     //preset x
     Not16(in=x, out=notx);
-    And16(a=x, b=notx, out=zerox);
-    Mux16(a=x, b=zerox, sel=zx, out=x2); 
-    Not16(in=x2, out=notx2);
-    Mux16(a=x2, b=notx2, sel=nx, out=presetx);
+    Mux4Way16(a=x, b=notx, c=false, d=true, sel[0]=nx, sel[1]=zx, out=presetx);
 
     //preset y
     Not16(in=y, out=noty);
-    And16(a=y, b=noty, out=zeroy);
-    Mux16(a=y, b=zeroy, sel=zy, out=y2);
-    Not16(in=y2, out=noty2);
-    Mux16(a=y2, b=noty2, sel=ny, out=presety);
+    Mux4Way16(a=y, b=noty, c=false, d=true, sel[0]=ny, sel[1]=zy, out=presety);
 
     //apply f
     Add16(a=presetx, b=presety, out=xplusy);
@@ -63,7 +57,8 @@ CHIP ALU {
 
     //negate output?
     Not16(in=functionresult, out=notfunctionresult);
-    Mux16(a=functionresult, b=notfunctionresult, sel=no, out[0..7]=outfirsthalf, out[8..15]=outsecondhalf, out[15]=ng, out=out);
+    Mux16(a=functionresult, b=notfunctionresult, sel=no,
+    out[0..7]=outfirsthalf, out[8..15]=outsecondhalf, out[15]=ng, out=out);
 
     //set zr
     Or8Way(in=outfirsthalf, out=firsthalfnonzero);
@@ -71,9 +66,4 @@ CHIP ALU {
     Not(in=firsthalfnonzero, out=firsthalfzero);
     Not(in=secondhalfnonzero, out=secondhalfzero);
     And(a=firsthalfzero, b=secondhalfzero, out=zr);
-
-    //set ng
-    //Or(a=out[15], b=out[15], out=ng);
-
-
 }
