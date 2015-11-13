@@ -39,5 +39,42 @@ CHIP CPU {
         pc[15];          // address of next instruction
 
     PARTS:
-    // Put your code here:
+    //Is it a Compute or Address instruction?  MSB=1 -> Compute, MSB=0 -> Address
+    Not(in=instruction[15], out=isAinstruction);
+    Not(in=isAinstruction, out=isCinstruction);
+
+
+    //A Register
+    Mux16(a=outALU, b=instruction, sel=instruction[15], out=inA);
+    And(a=isCinstruction, b=instruction[5], out=computeA);
+    Or(a=isAinstruction, b=computeA, out=loadA);
+    ARegister(in=inA, load=loadA, out=outA, out=addressM);
+
+
+    //D Register
+    And(a=isCinstruction, b=instruction[4], out=loadD);
+    DRegster(in=outALU, load=loadD, out=outD);
+
+
+    Mux16(a=outA, b=inM, sel=instruction[12], out=outAM);
+
+
+    ALU(x=outD, y=outAM,
+        zx=instruction[11],
+        nx=instruction[10],
+        zy=instruction[9],
+        ny=instruction[8],
+        f=instruction[7],
+        no=instruction[8],
+        out=outALU,
+        out=outM,
+        zr=zr,
+        ng=ng);
+
+    //TODO: Determine writeM
+
+    //TODO: Determine pc load/inc
+    //load should be true when jumping, else inc
+
+    PC(in=outA, load=, inc=true, reset=reset, out=pc);
 }
