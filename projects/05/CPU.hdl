@@ -45,15 +45,15 @@ CHIP CPU {
 
 
     //A Register
-    Mux16(a=outALU, b=instruction, sel=instruction[15], out=inA);
     And(a=isCinstruction, b=instruction[5], out=computeA);
     Or(a=isAinstruction, b=computeA, out=loadA);
-    ARegister(in=inA, load=loadA, out=outA, out=addressM);
+    Mux16(a=instruction, b=outALU, sel=instruction[15], out=inA);
+    ARegister(in=inA, load=loadA, out=outA, out[0..14]=addressM);
 
 
     //D Register
     And(a=isCinstruction, b=instruction[4], out=loadD);
-    DRegster(in=outALU, load=loadD, out=outD);
+    DRegister(in=outALU, load=loadD, out=outD);
 
 
     Mux16(a=outA, b=inM, sel=instruction[12], out=outAM);
@@ -65,16 +65,29 @@ CHIP CPU {
         zy=instruction[9],
         ny=instruction[8],
         f=instruction[7],
-        no=instruction[8],
+        no=instruction[6],
         out=outALU,
         out=outM,
         zr=zr,
         ng=ng);
 
-    //TODO: Determine writeM
 
-    //TODO: Determine pc load/inc
+    //writeM
+    And(a=isCinstruction, b=instruction[3], out=writeM);
+
+
+    //Should we jump?
+    Not(in=zr, out=nzr);
+    Not(in=ng, out=nng);
+    And(a=nzr, b=nng, out=pos);
+    And(a=instruction[2], b=ng, out=jlt); // < 0
+    And(a=instruction[1], b=zr, out=jz);  // = 0
+    And(a=instruction[0], b=pos, out=jpos); // > 0
+    Or(a=jlt, b=jz, out=jltz);
+    Or(a=jltz, b=jpos, out=jumpCondition);
+    And(a=isCinstruction, b=jumpCondition, out=shouldJump);
+    
+
     //load should be true when jumping, else inc
-
-    PC(in=outA, load=, inc=true, reset=reset, out=pc);
+    PC(in=outA, load=shouldJump, inc=true, reset=reset, out[0..14]=pc);
 }
