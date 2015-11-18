@@ -64,15 +64,15 @@ final class Coder {
         _computationsTable.put("D|M", "1010101");
     }
 
-    public static String destination(String mnemonic) {
+    public static String getDestinationCode(String mnemonic) {
         return _destinationsTable.get(mnemonic);
     }
 
-    public static String computation(String mnemonic) {
+    public static String getComputationCode(String mnemonic) {
         return _computationsTable.get(mnemonic);
     }
 
-    public static String jump(String mnemonic) {
+    public static String getJumpCode(String mnemonic) {
         return _jumpsTable.get(mnemonic);
     }
 }
