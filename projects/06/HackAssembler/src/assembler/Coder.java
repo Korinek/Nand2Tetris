@@ -33,35 +33,35 @@ final class Coder {
     static {
         _computationsTable = new HashMap<>();
         // (when a=0)
-        _computationsTable.put("0",   "101010");
-        _computationsTable.put("1",   "111111");
-        _computationsTable.put("!A",  "110001");
-        _computationsTable.put("-D",  "001111");
-        _computationsTable.put("-A",  "110011");
-        _computationsTable.put("D",   "001100");
-        _computationsTable.put("-1",  "111010");
-        _computationsTable.put("!D",  "001101");
-        _computationsTable.put("A",   "110000");
-        _computationsTable.put("D+1", "011111");
-        _computationsTable.put("A+1", "110111");
-        _computationsTable.put("D-1", "001110");
-        _computationsTable.put("A-1", "110010");
-        _computationsTable.put("D+A", "000010");
-        _computationsTable.put("D-A", "101011");
-        _computationsTable.put("A-D", "000111");
-        _computationsTable.put("D&A", "000000");
-        _computationsTable.put("D|A", "010101");
+        _computationsTable.put("0",   "0101010");
+        _computationsTable.put("1",   "0111111");
+        _computationsTable.put("!A",  "0110001");
+        _computationsTable.put("-D",  "0001111");
+        _computationsTable.put("-A",  "0110011");
+        _computationsTable.put("D",   "0001100");
+        _computationsTable.put("-1",  "0111010");
+        _computationsTable.put("!D",  "0001101");
+        _computationsTable.put("A",   "0110000");
+        _computationsTable.put("D+1", "0011111");
+        _computationsTable.put("A+1", "0110111");
+        _computationsTable.put("D-1", "0001110");
+        _computationsTable.put("A-1", "0110010");
+        _computationsTable.put("D+A", "0000010");
+        _computationsTable.put("D-A", "0101011");
+        _computationsTable.put("A-D", "0000111");
+        _computationsTable.put("D&A", "0000000");
+        _computationsTable.put("D|A", "0010101");
         // (when a=1)
-        _computationsTable.put("M",   "110000");
-        _computationsTable.put("!M",  "110001");
-        _computationsTable.put("-M",  "110011");
-        _computationsTable.put("M+1", "110111");
-        _computationsTable.put("M-1", "110010");
-        _computationsTable.put("D+M", "000010");
-        _computationsTable.put("D-M", "010011");
-        _computationsTable.put("M-D", "000111");
-        _computationsTable.put("D&M", "000000");
-        _computationsTable.put("D|M", "010101");
+        _computationsTable.put("M",   "1110000");
+        _computationsTable.put("!M",  "1110001");
+        _computationsTable.put("-M",  "1110011");
+        _computationsTable.put("M+1", "1110111");
+        _computationsTable.put("M-1", "1110010");
+        _computationsTable.put("D+M", "1000010");
+        _computationsTable.put("D-M", "1010011");
+        _computationsTable.put("M-D", "1000111");
+        _computationsTable.put("D&M", "1000000");
+        _computationsTable.put("D|M", "1010101");
     }
 
     public static String destination(String mnemonic) {
