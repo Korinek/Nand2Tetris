@@ -1,21 +1,44 @@
 package assembler;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 final class Parser {
-    public static SymbolTable parse(File file) throws FileNotFoundException {
-        try {
-            Scanner sc = new Scanner(file);
-            return Parser.parse(sc);
-        } catch (Exception e) {
-            System.out.println("Could not find the specified file.");
-            return null;
-        }
+
+    public Parser(Scanner input) {
+
     }
 
-    private static SymbolTable parse(Scanner sc) {
+    public boolean hasMoreCommands() {
+        //TODO
+        return true;
+    }
+
+    public void advance() {
+        //TODO
+    }
+
+    public CommandType getCommandType() {
+        //TODO
+        return CommandType.Address;
+    }
+
+    public String getSymbol() {
+        //TODO
+        return null;
+    }
+
+    public String getDestination() {
+        //TODO
+        return null;
+    }
+
+    public String getComputation() {
+        //TODO
+        return null;
+    }
+
+    public String getJump() {
+        //TODO
         return null;
     }
 }
