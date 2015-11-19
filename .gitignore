@@ -1,2 +1,6 @@
 .idea/
 out/
+*.swp
+*.DS_STORE
+*.DS_Store
+**/.DS_Store
