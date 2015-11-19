@@ -7,14 +7,10 @@ import java.util.regex.Pattern;
 final class Parser {
     private Scanner _input;
     private String _currentCommand;
-    private Pattern _addressCommandPattern;
-    private Pattern _labelCommandPattern;
     private Pattern _symbolPattern;
 
     public Parser(Scanner input) {
         _input = input;
-        _addressCommandPattern = Pattern.compile("^@.*");
-        _labelCommandPattern = Pattern.compile("^[(].*[)]$");
         _symbolPattern = Pattern.compile("^[@|(](.*?)[)]?$");
     }
 
@@ -35,13 +31,11 @@ final class Parser {
     }
 
     public CommandType getCommandType() {
-        Matcher addressMatcher = _addressCommandPattern.matcher(_currentCommand);
-        if (addressMatcher.matches()) {
+        if (_currentCommand.matches("^@.*")) {
             return CommandType.Address;
         }
 
-        Matcher labelMatcher = _labelCommandPattern.matcher(_currentCommand);
-        if (labelMatcher.matches()) {
+        if (_currentCommand.matches("^[(].*[)]$")) {
             return CommandType.Label;
         }
 
@@ -56,18 +50,32 @@ final class Parser {
         return symbolMatcher.group(1);
     }
 
+    //dest=comp;jmp
+
     public String getDestination() {
-        //TODO
-        return null;
+        if(_currentCommand.contains("=")) {
+            String[] fields = _currentCommand.split("=");
+            return fields[0];
+        }
+
+        return "null";
     }
 
     public String getComputation() {
-        //TODO
-        return null;
+        if(_currentCommand.contains("=")) {
+            String[] fields = _currentCommand.split("=");
+            return fields[1];
+        } else {
+            String[] fields = _currentCommand.split(";");
+            return fields[0];
+        }
     }
 
     public String getJump() {
-        //TODO
-        return null;
+        if(_currentCommand.contains(";")) {
+            String[] fields = _currentCommand.split(";");
+            return fields[1];
+        }
+        return "null";
     }
 }

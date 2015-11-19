@@ -20,13 +20,14 @@ final class Coder {
     static {
         //Jumps
         _jumpsTable = new HashMap<>();
-        _jumpsTable.put("JGT", "001");
-        _jumpsTable.put("JEQ", "010");
-        _jumpsTable.put("JGE", "011");
-        _jumpsTable.put("JLT", "100");
-        _jumpsTable.put("JNE", "101");
-        _jumpsTable.put("JLE", "110");
-        _jumpsTable.put("JMP", "111");
+        _jumpsTable.put("null", "000");
+        _jumpsTable.put("JGT",  "001");
+        _jumpsTable.put("JEQ",  "010");
+        _jumpsTable.put("JGE",  "011");
+        _jumpsTable.put("JLT",  "100");
+        _jumpsTable.put("JNE",  "101");
+        _jumpsTable.put("JLE",  "110");
+        _jumpsTable.put("JMP",  "111");
     }
 
     private static final HashMap<String, String> _computationsTable;
@@ -64,15 +65,15 @@ final class Coder {
         _computationsTable.put("D|M", "1010101");
     }
 
-    public static String getDestinationCode(String mnemonic) {
+    public String getDestinationCode(String mnemonic) {
         return _destinationsTable.get(mnemonic);
     }
 
-    public static String getComputationCode(String mnemonic) {
+    public String getComputationCode(String mnemonic) {
         return _computationsTable.get(mnemonic);
     }
 
-    public static String getJumpCode(String mnemonic) {
+    public String getJumpCode(String mnemonic) {
         return _jumpsTable.get(mnemonic);
     }
 }
